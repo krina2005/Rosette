@@ -1,0 +1,21 @@
+{
+  "name": "Rosette",
+  "short_name": "Rosette",
+  "description": "A privacy-first menstrual cycle tracking app",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FFF0F6",
+  "theme_color": "#EC4899",
+  "icons": [
+    {
+      "src": "/icon192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

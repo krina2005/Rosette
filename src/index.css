@@ -1,0 +1,35 @@
+@import "tailwindcss";
+/* 🌸 Light Theme */
+:root {
+  --bg-from: #fdf2f8; /* pink-50 */
+  --bg-to: #f5f3ff;   /* purple-50 */
+  --card-bg: #ffffff;
+  --text-main: #1f2937;
+}
+
+/* 🌙 Dark Theme */
+.dark {
+  --bg-from: #0f172a; /* slate-900 */
+  --bg-to: #020617;   /* slate-950 */
+  --card-bg: #020617;
+  --text-main: #f9fafb;
+}
+
+body {
+  background: linear-gradient(180deg, #fff0f6, #f5e9ff);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont;
+}
+
+/* Soft flower watermark */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image: url("/flower-bg.svg");
+  background-repeat: repeat;
+  background-size: 120px;
+  opacity: 0.04;
+  pointer-events: none;
+  z-index: -1;
+}
+
