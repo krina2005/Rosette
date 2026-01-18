@@ -11,6 +11,6 @@ export function showCycleNotification() {
 
   new Notification("Cycle reminder", {
     body: "A gentle reminder from BloomCycle",
-    icon: "/icon-192.png", // optional (later for PWA)
+    icon: "/icon192.png", // optional (later for PWA)
   });
 }

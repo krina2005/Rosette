@@ -5,34 +5,34 @@ type PeriodCycle = {
   startDate: string;
 };
 
-type ReminderSettings = {
-  enabled: boolean;
-  daysBefore: number;
-};
-
 export function checkForReminders() {
-  const cycles: PeriodCycle[] =
-    JSON.parse(localStorage.getItem("cycles") || "[]");
+  // 📦 Read saved cycles
+  const cycles: PeriodCycle[] = JSON.parse(
+    localStorage.getItem("cycles") || "[]"
+  );
 
-  const settings: ReminderSettings =
-    JSON.parse(
-      localStorage.getItem("reminderSettings") ||
-        '{"enabled":false,"daysBefore":3}'
-    );
+  // 🔔 Read reminder settings (from Settings page)
+  const settings = {
+    enabled: localStorage.getItem("remindersEnabled") === "true",
+    daysBefore: Number(localStorage.getItem("reminderDays")) || 3,
+  };
 
+  // 🚫 Stop if reminders off or no data
   if (!settings.enabled || cycles.length === 0) return;
 
-  // --- Calculate average cycle length ---
+  /* ======================
+     CALCULATE AVERAGE CYCLE
+     ====================== */
   let averageCycle = 28;
 
   if (cycles.length >= 2) {
     const diffs: number[] = [];
+
     for (let i = 1; i < cycles.length; i++) {
-      const diff =
-        differenceInCalendarDays(
-          new Date(cycles[i].startDate),
-          new Date(cycles[i - 1].startDate)
-        );
+      const diff = differenceInCalendarDays(
+        new Date(cycles[i].startDate),
+        new Date(cycles[i - 1].startDate)
+      );
       diffs.push(diff);
     }
 
@@ -43,7 +43,11 @@ export function checkForReminders() {
       ) || 28;
   }
 
+  /* ======================
+     PREDICT NEXT CYCLE
+     ====================== */
   const lastCycle = cycles[cycles.length - 1];
+
   const predictedStart = addDays(
     new Date(lastCycle.startDate),
     averageCycle
@@ -56,6 +60,9 @@ export function checkForReminders() {
 
   const today = new Date();
 
+  /* ======================
+     TRIGGER NOTIFICATION
+     ====================== */
   if (
     differenceInCalendarDays(reminderDate, today) === 0 ||
     differenceInCalendarDays(predictedStart, today) === 0

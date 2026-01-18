@@ -10,6 +10,7 @@ import AddCycle from "./pages/AddCycle";
 import Knowledge from "./pages/Knowledge";
 import Settings from "./pages/Settings";
 
+import { registerForPush } from "./utils/push";
 import { requestNotificationPermission } from "./utils/notifications";
 import { checkForReminders } from "./utils/reminderChecker";
 
@@ -19,6 +20,10 @@ export default function App() {
   const hasPin = !!localStorage.getItem("appPin");
 
   const [unlocked, setUnlocked] = useState(!appLockEnabled);
+
+  useEffect(() => {
+    registerForPush();
+  }, []);
 
   useEffect(() => {
     requestNotificationPermission();
