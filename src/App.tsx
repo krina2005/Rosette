@@ -22,12 +22,9 @@ export default function App() {
   const [unlocked, setUnlocked] = useState(!appLockEnabled);
 
   useEffect(() => {
-    registerForPush();
-  }, []);
-
-  useEffect(() => {
     requestNotificationPermission();
     checkForReminders();
+    registerForPush();
   }, []);
 
   if (appLockEnabled && hasPin && !unlocked) {
